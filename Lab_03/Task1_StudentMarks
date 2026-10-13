@@ -1,0 +1,90 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    const int STUDENTS = 6;
+    const int SUBJECTS = 4;
+    string subjectNames[SUBJECTS] = {"English", "Mathematics", "Programming", "AI"};
+
+    // 2D array to store marks of 6 students in 4 subjects
+    int marks[STUDENTS][SUBJECTS] = {
+        {78, 85, 90, 88},
+        {65, 70, 60, 72},
+        {90, 95, 88, 92},
+        {55, 60, 65, 58},
+        {80, 75, 82, 79},
+        {70, 68, 74, 71}
+    };
+
+    // 1. Display the complete marks table
+    cout << "===== Student Marks Table =====" << endl;
+    cout << "Student\t";
+    for (int j = 0; j < SUBJECTS; j++)
+        cout << subjectNames[j] << "\t";
+    cout << endl;
+
+    for (int i = 0; i < STUDENTS; i++)
+    {
+        cout << "S" << (i + 1) << "\t";
+        for (int j = 0; j < SUBJECTS; j++)
+        {
+            cout << marks[i][j] << "\t";
+        }
+        cout << endl;
+    }
+
+    // 2. Total and 3. Average marks of each student
+    int total[STUDENTS] = {0};
+    float average[STUDENTS] = {0};
+
+    cout << "\n===== Total and Average Marks =====" << endl;
+    for (int i = 0; i < STUDENTS; i++)
+    {
+        int sum = 0;
+        for (int j = 0; j < SUBJECTS; j++)
+        {
+            sum += marks[i][j];
+        }
+        total[i] = sum;
+        average[i] = (float)sum / SUBJECTS;
+        cout << "Student " << (i + 1) << " -> Total: " << total[i]
+             << "\tAverage: " << average[i] << endl;
+    }
+
+    // 4. Highest marks in each subject
+    cout << "\n===== Highest Marks in Each Subject =====" << endl;
+    for (int j = 0; j < SUBJECTS; j++)
+    {
+        int highest = marks[0][j];
+        int studentIndex = 0;
+        for (int i = 1; i < STUDENTS; i++)
+        {
+            if (marks[i][j] > highest)
+            {
+                highest = marks[i][j];
+                studentIndex = i;
+            }
+        }
+        cout << subjectNames[j] << " -> Highest: " << highest
+             << " (Student " << (studentIndex + 1) << ")" << endl;
+    }
+
+    // 5. Student with the highest total marks
+    int maxTotal = total[0];
+    int topStudent = 0;
+    for (int i = 1; i < STUDENTS; i++)
+    {
+        if (total[i] > maxTotal)
+        {
+            maxTotal = total[i];
+            topStudent = i;
+        }
+    }
+
+    cout << "\n===== Top Student =====" << endl;
+    cout << "Student " << (topStudent + 1) << " has the highest total marks: "
+         << maxTotal << endl;
+
+    return 0;
+}
